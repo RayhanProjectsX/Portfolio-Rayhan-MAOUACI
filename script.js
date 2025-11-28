@@ -315,10 +315,6 @@ aiInput.addEventListener("keypress", e => {
     if (e.key === "Enter") sendAI();
 });
 
-/* =========================================
-   OUVERTURE / FERMETURE DE LA BULLE IA
-   ========================================= */
-
 const bubble = document.getElementById("rayhaiBubble");
 const popup = document.getElementById("rayhaiPopup");
 const closeBtn = document.getElementById("closeRayhai");

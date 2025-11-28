@@ -632,14 +632,35 @@ header.shrink {
   backdrop-filter: blur(18px);
 }
 
+/* =========================================
+   SÉCURISATION : rien ne peut bouger RayhAI
+   ========================================= */
+
+#rayhai-root {
+    all: initial;
+    position: fixed !important;
+    inset: auto auto 28px 28px !important;
+    z-index: 999999 !important;
+    display: block !important;
+}
+
+/* Permet d'utiliser du style malgré all:initial */
+#rayhai-root *,
+#rayhai-root *::before,
+#rayhai-root *::after {
+    all: unset;
+    box-sizing: border-box;
+}
+
+
 /* =====================================
-   BULLE FLOTTANTE BAS-GAUCHE
+   BULLE FLOTTANTE
    ===================================== */
 
-.rayhai-bubble {
-    position: fixed;
-    bottom: 28px;
-    left: 28px;
+#rayhai-root .rayhai-bubble {
+    position: fixed !important;
+    bottom: 28px !important;
+    left: 28px !important;
     width: 66px;
     height: 66px;
     border-radius: 50%;
@@ -650,22 +671,21 @@ header.shrink {
     cursor: pointer;
     box-shadow: 0 0 25px rgba(0, 238, 255, 0.5);
     animation: pulseRayhai 2.4s infinite ease-in-out;
-    z-index: 1000;
+    z-index: 1000000 !important;
 }
 
 @keyframes pulseRayhai {
-    0% { box-shadow: 0 0 14px rgba(0, 238, 255, 0.6); transform: scale(1); }
-    50% { box-shadow: 0 0 25px rgba(0, 238, 255, 0.9); transform: scale(1.06); }
-    100% { box-shadow: 0 0 14px rgba(0, 238, 255, 0.6); transform: scale(1); }
+    0% { transform: scale(1); box-shadow: 0 0 10px #00eaff; }
+    50% { transform: scale(1.08); box-shadow: 0 0 22px #00eaff; }
+    100% { transform: scale(1); box-shadow: 0 0 10px #00eaff; }
 }
 
-/* Petit point animé au centre */
-.rayhai-dot {
+#rayhai-root .rayhai-dot {
     width: 14px;
     height: 14px;
-    background: #fff;
+    background: white;
     border-radius: 50%;
-    animation: dotPulse 1.6s infinite ease-in-out;
+    animation: dotPulse 1.6s infinite;
 }
 
 @keyframes dotPulse {
@@ -674,43 +694,48 @@ header.shrink {
     100% { transform: scale(1); opacity: 1; }
 }
 
+
 /* =====================================
-   POPUP DE L’IA
+   POPUP IA
    ===================================== */
 
-.rayhai-popup {
-    position: fixed;
-    bottom: 110px;
-    left: 28px;
+#rayhai-root .rayhai-popup {
+    position: fixed !important;
+    bottom: 110px !important;
+    left: 28px !important;
     width: 340px;
     height: 460px;
     border-radius: 18px;
-    background: rgba(20,20,20,0.65);
-    backdrop-filter: blur(12px);
-    box-shadow: 0 0 22px rgba(0, 247, 255, 0.25);
+    background: rgba(20,20,20,0.75);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 0 25px rgba(0, 247, 255, 0.3);
     display: none;
     flex-direction: column;
     padding: 15px;
-    z-index: 1001;
-    border: 1px solid rgba(255,255,255,0.10);
+    z-index: 1000000 !important;
+    animation: slideUp 0.3s ease-out;
 }
 
-.rayhai-popup-header {
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+#rayhai-root .rayhai-popup-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-bottom: 10px;
-    border-bottom: 1px solid rgba(255,255,255,0.12);
+    border-bottom: 1px solid rgba(255,255,255,0.15);
 }
 
-.rayhai-close {
-    background: none;
-    border: none;
-    font-size: 24px;
-    color: #fff;
+#rayhai-root .rayhai-close {
+    font-size: 22px;
     cursor: pointer;
+    opacity: 0.7;
 }
 
-.rayhai-close:hover {
-    opacity: 0.7;
+#rayhai-root .rayhai-close:hover {
+    opacity: 1;
 }
